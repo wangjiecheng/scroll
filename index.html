@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="Description" content="scroll">
+<meta name="Keywords" content="scroll">
+<title>scroll-WindyDay</title>
+<style>
+/*rest*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img{border:0}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+q:before,q:after{content:''}
+abbr,acronym{border:0;font-variant:normal}
+sup{vertical-align:text-top}
+a{text-decoration:none}
+sub{vertical-align:text-bottom}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}
+input,textarea,select{*font-size:100%}
+html{min-width:1100px;}
+body { background-color: #000; min-width: 1000px;}
+.scroll_box { width: 1000px; height: 100px; margin: 0 auto; background-color: #fff; overflow: hidden;}
+.scroll_box ul { position: relative;}
+.scroll_box ul li { width: 200px; height: 100px; background-color: #0982BF; margin: 0 20px; float: left; color: #fff; font-size: 20px; line-height: 100px; text-align: center;}
+h4 { color: #fff; font-size: 40px; font-weight: bold; text-align: left; width: 1000px; margin: 50px auto;}
+.test_box { width: 1000px; height: 120px; margin: 0 auto; background-color: #fff; overflow: hidden; overflow-x: auto;}
+.test_box ul { position: relative; width: 100%; height: 120px; white-space: nowrap; overflow-x: auto; font-size: 0; text-align: center;}
+.test_box ul li { width: 200px; height: 100px; display: inline-block; vertical-align: top; background-color: #0982BF; margin: 0 20px; color: #fff; font-size: 20px; line-height: 100px; text-align: center;}
+</style>
+</head>
+<div class="box" id="wrap">
+	<h4>Mousemove:</h4>
+	<div class="scroll_box" id="scroll_box">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>10</li>
+			<li>11</li>
+			<li>12</li>
+			<li>13</li>
+			<li>14</li>
+		</ul>
+	</div>
+	<h4>Drag:</h4>
+	<div class="test_box">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>10</li>
+			<li>11</li>
+			<li>12</li>
+			<li>13</li>
+			<li>14</li>
+		</ul>
+	</div>
+</div>
+<body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+scrollX('#scroll_box');
+function scrollX(id){
+	var mouseX;
+	var mouseY;
+	var Box = $(id);// 获取你想要的DIV
+	var y1 = Box.offset().top;  //div上面两个的点的y值
+	var y2 = y1 + Box.height();//div下面两个点的y值
+	var x1 = Box.offset().left;  //div左边两个的点的x值
+	var x2 = x1 + Box.width();  //div右边两个点的x的值
+	var divWidth = Box.width();
+	var ulLength = Box.find('li').length;
+	var liWidth = Box.find('li').outerWidth(true);
+	Box.children('ul').width(ulLength * liWidth); //ul的宽
+	var sBoxWidth = ulLength * 240 - divWidth; //左右滚动的宽
+	var rate = sBoxWidth / divWidth;
+	$(document).mousemove(function(e){ 
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+		if( mouseX < x1 || mouseX > x2 || mouseY < y1 || mouseY > y2){
+		}else{
+			var mouserMoveX = mouseX - x1;
+			var sLeftNum = mouserMoveX * rate;
+			Box.children('ul').css("left",'-'+ sLeftNum +'px');
+		};
+	});
+//	$(id).mousemove(function(e){ 
+//		mouseX = e.clientX;
+//		mouseY = e.clientY;
+//		var mouserMoveX = mouseX - x1;
+//		var sLeftNum = mouserMoveX * rate;
+//		Box.children('ul').css("left",'-'+ sLeftNum +'px');
+//	});
+}
+
+
+</script>
+</body>
+</html>
