@@ -88,7 +88,7 @@ function scrollX(id){
 	var ulLength = Box.find('li').length;
 	var liWidth = Box.find('li').outerWidth(true);
 	Box.children('ul').width(ulLength * liWidth); //ul的宽
-	var sBoxWidth = ulLength * 240 - divWidth; //左右滚动的宽
+	var sBoxWidth = ulLength * liWidth - divWidth; //左右滚动的宽
 	var rate = sBoxWidth / divWidth;
 	$(document).mousemove(function(e){ 
 		mouseX = e.clientX;
